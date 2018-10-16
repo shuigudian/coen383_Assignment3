@@ -13,30 +13,26 @@ public class SellerL extends Seller{
 		while (!customers.isEmpty()) {						
 			Customer customer;
 			if (customers.isEmpty()) return;
-			// Get customer in queue that is ready
+			// customer ready in the queue
 			update();
 			if(currentTime <= 59)
 				customer = customers.peek();
 			else
 				return;
 
-			// Find seat for the customer
-			// Case for Seller L
+			// find seat
 			Seat seat = null;
-
-			//System.out.println(currentTime);
 		
 			synchronized(lock) {
 				
 				update();
-				//System.out.println("got in");
 				if(currentTime  >= (customer.getArrivalTime())){
 				find_seat:
 					for (int i = seating.length-1; i >= 0; i--) {
 						for (int j = 0; j < seating[0].length; j++) {
 							if (seating[i][j].isSeatEmpty()) {
-								// Assign seat to customer
-								// Seat number = (Row x 10) + (Col + 1)
+								// assign seat
+								// seat number = (Row x 10) + (Col + 1)
 								int seatNum = (i*10)+j+1;
 								seat = new Seat(seatNum);
 								super.assignSeat(customer, seat, i, j);
