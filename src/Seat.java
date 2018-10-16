@@ -1,29 +1,27 @@
 
 public class Seat {
-	
-	private int seatNumber;
-	private Customer seatTaken;
-	
-	public Seat(int num)
-	{
-		seatNumber = num;
-		seatTaken = null;
-	}
 
-	public void assignSeat(Customer c)
-	{
-		seatTaken = c;
-	}
+    private int seatNum;
+    private Customer seatTaken;
 
-	public boolean isSeatEmpty() {
-		return seatTaken == null;
-	}
-	
-	public int getSeatNumber() {
-		return seatNumber;
-	}
-	
-	public Customer getCustomer(){
-		return seatTaken;
-	}
+    public Seat(int num) {
+        seatNum = num;
+        seatTaken = null;
+    }
+
+    public int getSeatNum() {
+        return seatNum;
+    }
+
+    public Customer getCustomer() {
+        return seatTaken;
+    }
+
+    public void assignSeat(Customer c) {
+        seatTaken = c;
+    }
+
+    public boolean isSeatEmpty() {
+        return seatTaken == null;
+    }
 }

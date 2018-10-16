@@ -1,62 +1,57 @@
 import java.util.Random;
 
-public class Customer implements Comparable<Customer>{
-	Random r = new Random();
-	private int arrivalTime;
-	private int seatNum;
-	private int customerID;
-	private String ticket;
-	private int time;
-	
-	public int getTime() {
-		return time;
-	}
+public class Customer implements Comparable<Customer> {
+    Random r = new Random();
+    private int arrivalTime;
+    private String ticket;
+    private int time;
+    private int seatNum;
+    private int customerID;
 
-	public void setTime(int time) {
-		this.time = time;
-	}
+    public Customer(int customerID) {
+        arrivalTime = r.nextInt(60);
+        this.customerID = customerID;
+        seatNum = -1;
+    }
 
-	public String getTicket() {
-		return ticket;
-	}
+    public int getTime() {
+        return time;
+    }
 
-	public void setTicket(String ticket) {
-		this.ticket = ticket;
-	}
+    public void setTime(int time) {
+        this.time = time;
+    }
 
-	public Customer(int customerID){
-		arrivalTime = r.nextInt(60);
-		this.customerID = customerID;
-		seatNum = -1;
-	}
-	
-	public int getArrivalTime(){
-		return this.arrivalTime;
-	}
-	
-	public void setSeatNum(int seatNum){
-		this.seatNum = seatNum;
-	}
-	
-	public boolean isSigned(){
-		if(seatNum== -1)  return false;
-		else return true;
-	}
-	public int getSeatNum(){
-		return this.seatNum;
-	}
-	
-	public int customerID(){
-		return this.customerID;
-	}
+    public String getTicket() {
+        return ticket;
+    }
 
-	@Override
-	public int compareTo(Customer customer) {
-		if(this.arrivalTime < customer.arrivalTime)
-			return -1;
-		else if(this.arrivalTime > customer.arrivalTime)
-			return 1;
-		else
-			return 0;
-	}
+    public void setTicket(String ticket) {
+        this.ticket = ticket;
+    }
+
+    public int getArrivalTime() {
+        return this.arrivalTime;
+    }
+
+    public void setSeatNum(int seatNum) {
+        this.seatNum = seatNum;
+    }
+
+    public int getSeatNum() {
+        return this.seatNum;
+    }
+
+    public int customerID() {
+        return this.customerID;
+    }
+
+    public boolean isSigned() {
+        return seatNum != -1;
+    }
+
+    @Override
+    public int compareTo(Customer customer) {
+        return Integer.compare(this.arrivalTime, customer.arrivalTime);
+    }
 }
