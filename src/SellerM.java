@@ -9,32 +9,25 @@ public class SellerM extends Seller{
 	}
 
 	public void sell() {
-		while (!customers.isEmpty()) {						
-			//Object lock = new Object();
+		while (!customers.isEmpty()) {
 			Customer customer;
 			if (customers.isEmpty()) return;
-			// Get customer in queue that is ready
 			
 			
-			update(); // get the current time
+			update();
 			if(currentTime <= 59)
 				customer = customers.peek();
 			else
 				return;
-
-			// Find seat for the customer
-			// Case for Seller M
 			boolean flag = true;
 			int counter = 1;
 
 			Seat seat = null;
-
-			//System.out.println(currentTime);
 			
 			synchronized(lock) {
 					
 				update();
-					//System.out.println("got in");
+					
 				if(currentTime  >= (customer.getArrivalTime())){
 				find_seat:
 					for(int i = 5; i >= 0 && i < seating.length;) {
@@ -70,7 +63,6 @@ public class SellerM extends Seller{
 					Thread.sleep(serviceTime * 1000);
 					update();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

@@ -22,7 +22,7 @@ public class Run {
 		Seller[] allSellers = new Seller[10];
 		for (int numSeller = 0; numSeller < 10; numSeller++)
 		{
-			if (numSeller == 0) 
+			if (numSeller == 0)
 				allSellers[numSeller] = new SellerH(seating, "H" + (numSeller + 1), lock);
 			else if (numSeller >= 1 && numSeller < 4) 
 				allSellers[numSeller] = new SellerM(seating, "M" + (numSeller), lock);
