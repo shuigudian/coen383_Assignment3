@@ -1,20 +1,14 @@
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 
-public class Simulation {
-	
-	
+public class Run {
 	public static void main(String[] args) {
 
-		//number of customers per seller per hour
-		//prompt user
-		int N = 0;
+		int customersPerSellerPerHour = 0;
 		Scanner userInput = new Scanner(System.in);
 		System.out.println("Enter the number of customers per seller: ");
 		
 		if(userInput.hasNextInt())
-			N = userInput.nextInt(); 
+			customersPerSellerPerHour = userInput.nextInt();
 		else
 			System.out.println("Please restart and enter an integer.");
 
@@ -24,7 +18,7 @@ public class Simulation {
 		int maxCols = 10;
 		Seat[][] seating = createSeating(maxRows, maxCols);
 
-		//create 10 threads representing 10 sellers
+		//create 10 threads
 		Seller[] allSellers = new Seller[10];
 		for (int numSeller = 0; numSeller < 10; numSeller++)
 		{
@@ -36,12 +30,11 @@ public class Simulation {
 				allSellers[numSeller] = new SellerL(seating, "L" + (numSeller - 3), lock);
 		}
 
-		//add N customers for each seller for each hour
-		//initially add N customers for each seller's queue
-		allSellers = addNewCustomers(allSellers, N);
+		//initially add customersPerSellerPerHour in queue
+		allSellers = addNewCustomers(allSellers, customersPerSellerPerHour);
 
 		
-		Thread []threads = new Thread[allSellers.length];
+		Thread[] threads = new Thread[allSellers.length];
 		
 		
 		for(int numSellers = 0; numSellers < allSellers.length; numSellers++)
@@ -51,45 +44,16 @@ public class Simulation {
 			
 		}
 		
-
-		
-		
 		for(int numSellers = 0; numSellers < allSellers.length; numSellers++)
 		{
 			try {
 				threads[numSellers].join();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}		
 		}
-		
-
-
-		//print the following with the current time
-		//- customer added to the queue
-		//- customer is attended (given a seat or told there are no seats)
-		//- customer gets a ticket and goes to seat
-		//- print seating chart everytime a ticket is sold
-
-		//wait for all sellers to finish
-
-
-		/*
-		synchronized(lock) {
-			printSeating(seating, maxRows, maxCols);
-		}
-		*/
-		
-
 	}
 
-	/**
-	 * Create a seating chart and label with seat numbers
-	 * @param maxRows: max number of rows for the chart
-	 * @param maxCols max number of columns for the chart
-	 * @return seating chart with the given size and fully labeled
-	 */
 	public static Seat[][] createSeating(int maxRows, int maxCols)
 	{
 		//create 10x10 seating and label with seat numbers
@@ -106,12 +70,7 @@ public class Simulation {
 		return seating;
 	}
 
-	/**
-	 * Add the given number of customers for each seller's queue
-	 * @param allSellers: array containing all the sellers
-	 * @param numAdd: number of customers to add to each seller
-	 * @return updated array with the new customers added to each queue
-	 */
+
 	public static Seller[] addNewCustomers(Seller[] allSellers, int numAdd)
 	{
 		for (int numSeller = 0; numSeller < allSellers.length; numSeller++)
@@ -125,28 +84,4 @@ public class Simulation {
 		}
 		return allSellers;
 	}
-
-	/**
-	 * Print the current seating chart
-	 * @param seating: current seating chart
-	 * @param maxRows: max number of rows for the chart
-	 * @param maxCols: max number of columns for the chart
-	 */
-	
-	public static void printSeating(Seat[][] seating, int maxRows, int maxCols)
-	{
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		for (int row = 0; row < maxRows; row++)
-		{
-			for (int col = 0; col < maxCols; col++)
-			{
-				if (seating[row][col].isSeatEmpty()) 
-					System.out.printf("%7s ", "O");
-				else 
-					System.out.printf("%7s ", seating[row][col].getCustomer().getTicket());
-			}
-			System.out.println();
-		}
-	}
-
 }
