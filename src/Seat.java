@@ -9,7 +9,7 @@ public class Seat {
         seatTaken = null;
     }
 
-    public int getSeatNum() {
+    public int getSeatNumberß() {
         return seatNum;
     }
 
