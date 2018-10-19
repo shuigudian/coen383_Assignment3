@@ -27,7 +27,7 @@ public class SellerM extends Seller{
 			synchronized(lock) {
 					
 				update();
-					
+
 				if(currentTime  >= (customer.getArrivalTime())){
 				find_seat:
 					for(int i = 5; i >= 0 && i < seating.length;) {

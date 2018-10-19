@@ -52,6 +52,24 @@ public class Run {
 				e.printStackTrace();
 			}		
 		}
+
+		int h = customersPerSellerPerHour, m = customersPerSellerPerHour * 3, l = customersPerSellerPerHour * 6;
+		int remain = 0;
+		for(int i = 0; i < allSellers.length; i++){
+			remain += allSellers[i].customers.size();
+			if (i == 0){
+				h -= allSellers[i].customers.size();
+			}else if (i >= 1 && i < 4){
+				m -= allSellers[i].customers.size();
+			} else if (i >= 4 && i < 10){
+				l -= allSellers[i].customers.size();
+			}
+		}
+		System.out.println();
+		System.out.println("There are " + h + " H customer got seats");
+		System.out.println("There are " + m + " M customer got seats");
+		System.out.println("There are " + l + " L customer got seats");
+		System.out.println("Totally " + remain + " customer didn't get seats");
 	}
 
 	public static Seat[][] createSeating(int maxRows, int maxCols)
